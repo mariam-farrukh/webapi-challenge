@@ -77,11 +77,11 @@ function validateProject(req, res, next) {
     const project = req.body;
     console.log(project)
     if(!project.name) {
-        res.status(400).json({message: "Please provide the required name field"})
+        res.status(400).json({message: "Required: Provide a name"})
     } else if(!project.description) {
-        res.status(400).json({message: "Please provide the required description field"})
+        res.status(400).json({message: "Requied: Provide a description"})
     } else if(!project){
-        res.status(400).json({message: "Please provide project data"})
+        res.status(400).json({message: "Provide project data"})
     } else {
         next();
     }

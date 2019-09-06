@@ -79,11 +79,11 @@ function validateActionId (req, res, next) {
 function validateAction (req, res, next) {
     const action = req.body;
     if(!action.project_id) {
-        res.status(400).json({errorMessage: 'Provide a valid project_id for the action'})
+        res.status(400).json({errorMessage: 'Need a valid project_id for the action'})
     } else if(!action.notes) {
-        res.status(400).json({errorMessage: 'Provide a required note in the action'})
+        res.status(400).json({errorMessage: 'Required: Provide add a note to the action'})
     } else if(!action.description){
-        res.status(400).json({errorMessage: 'Provide a required description in the action'})
+        res.status(400).json({errorMessage: 'Required: Provide a description of the action'})
     } else {
         next();
     }
