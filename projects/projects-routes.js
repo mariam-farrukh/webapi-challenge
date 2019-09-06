@@ -72,15 +72,15 @@ router.put('/:id', validateProjectId, validateProject, (req, res) => {
 function validateProjectId (req, res, next) {
     const id = req.params.id
     Projects.get(id)
-    .then(result => {
-        if(result) {
+    .then(project => {
+        if(project) {
             next();
         } else {
-            res.status(400).json({message: "This project does not exist"})
+            res.status(404).json({errorMessage: "This project does not exist"})
         }
     })
-    .catch(err => {
-        res.status(500).json({error: err})
+    .catch(() => {
+        res.status(500).json({error: "Request is wrong"})
     })
 }
 
