@@ -19,7 +19,18 @@ router.get('/:id', validateProjectId, (req, res) => {
             res.status(200).json(project);
         })
         .catch(() => {
-            res.status(500).json({errorMessage: "Could not get projects"});
+            res.status(500).json({errorMessage: "Could not get project"});
+        })
+});
+
+router.get('/:id/actions', validateProjectId, (req, res) => {
+    const { id } = req.params;
+    Projects.getProjectActions(id)
+        .then(project => {
+            res.status(200).json(project);
+        })
+        .catch(() => {
+            res.status(500).json({errorMessage: "Server error, could not get project actions"});
         })
 });
 
