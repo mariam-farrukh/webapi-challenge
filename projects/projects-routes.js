@@ -12,31 +12,79 @@ router.get('/', (req, res) => {
         })
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', validateProjectId, (req, res) => {
     const { id } = req.params;
     Projects.get(id)
         .then(project => {
-            if(project) {
-                res.status(200).json(project);
-            } else {
-                res.status(400).json({errorMessage: "This project does not exist!"})
-            }
+            res.status(200).json(project);
         })
         .catch(() => {
             res.status(500).json({errorMessage: "Could not get projects"});
         })
 });
 
-router.post('/', (req, res) => {
-
+router.post('/', validateProject, (req, res) => {
+    const newProject = req.body;
+    Projects.insert(newProject)
+        .then(project => {
+            res.status(201).json(project);
+        })
+        .catch(() => {
+            res.status(500).json({errorMessage: "Could not create new project"});
+        })
 });
 
-router.delete('/', (req, res) => {
-
+router.delete('/:id', validateProjectId, (req, res) => {
+    const { id } = req.params;
+    Projects.remove(id)
+        .then(id => {
+            res.status(200).json({message: "Successfully deleted this project"});
+        })
+        .catch(() => {
+            res.status(500).json({errorMessage:"Could not delete this project"})
+        })
 });
 
-router.put('/', (req, res) => {
-    
+router.put('/:id', validateProjectId, validateProject, (req, res) => {
+    const id = req.params.id;
+    const update = req.body;
+    Projects.update(id, update)
+        .then(project => {
+            res.status(200).json(project);
+        })
+        .catch(() => {
+            res.status(500).json({errorMessage: "Could not edit this project"});
+        })
 });
+
+//Custom Middleware
+function validateProjectId (req, res, next) {
+    const id = req.params.id
+    Projects.get(id)
+    .then(result => {
+        if(result) {
+            next();
+        } else {
+            res.status(400).json({message: "This project does not exist"})
+        }
+    })
+    .catch(err => {
+        res.status(500).json({error: err})
+    })
+}
+
+function validateProject(req, res, next) {
+    const project = req.body;
+    console.log(project)
+    if(!project.name) {
+        res.status(400).json({message: "Please provide the required name field"})
+    } else if(!project.description) {
+        res.status(400).json({message: "Please provide the required description field"})
+    } else if(!project){
+        res.status(400).json({message: "Please provide project data"})
+    } else {
+        next();
+    }
+}
 
 module.exports = router;
