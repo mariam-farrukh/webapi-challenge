@@ -1,12 +1,12 @@
 const express = require('express');
 
-// const projectsRoutes = require("./projects/projects-routes.js");
+const projectsRoutes = require("./projects/projects-routes.js");
 const actionsRoutes = require("./actions/actions-routes.js");
 const server = express();
 
 server.use(express.json());
-// server.use("/api/projects", projectsRoutes);
-server.use("/api/actions", actionsRoutes);
+server.use("/projects", projectsRoutes);
+server.use("/actions", actionsRoutes);
 
 const port = 5003;
 
