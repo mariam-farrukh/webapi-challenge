@@ -24,15 +24,25 @@ In this challenge, create a web API around the following resources: `Projects` a
 
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
-- [ ] Mention two parts of Express that you learned about this week.
+- [X] Mention two parts of Express that you learned about this week.
 
-- [ ] Describe Middleware?
+Express is a server framework for Node. Routing is essentially a middleware and middleware is part of express that add extra functionality.
 
-- [ ] Describe a Resource?
+- [X] Describe Middleware?
 
-- [ ] What can the API return to help clients know if a request was successful?
+Middleware is basically functions that extend software and it adds features to express. Middleware happens in between the specific requests taking place.
 
-- [ ] How can we partition our application into sub-applications?
+- [X] Describe a Resource?
+
+Anything that is accessible by a unique URL is a resource.
+
+- [X] What can the API return to help clients know if a request was successful?
+
+The API can return status codes back to clients to let them know it was a successful request.
+
+- [X] How can we partition our application into sub-applications?
+
+We can partition our application with server.use() so that our endpoints are in different files.
 
 ## Project Setup
 
